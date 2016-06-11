@@ -18,8 +18,10 @@ namespace Fusee.Tutorial.Core
         public IShaderParam AlbedoParam;
         public IShaderParam ShininessParam;
         private IShaderParam TextureParam;
+        private IShaderParam Texture2Param;
         private IShaderParam TexMixParam;
         private ITexture _maleModelTexture;
+        private ITexture _maleModelTextureNM;
 
         public float4x4 View;
         private Dictionary<MeshComponent, Mesh> _meshes = new Dictionary<MeshComponent, Mesh>();
@@ -55,7 +57,10 @@ namespace Fusee.Tutorial.Core
             ShininessParam = RC.GetShaderParam(shader, "shininess");
             ImageData maleModelED = AssetStorage.Get<ImageData>("maleModel_ED.jpg");
             _maleModelTexture = RC.CreateTexture(maleModelED);
+            ImageData maleModelNM = AssetStorage.Get<ImageData>("maleModel_NM.jpg");
+            _maleModelTextureNM = RC.CreateTexture(maleModelNM);
             TextureParam = RC.GetShaderParam(shader, "texture");
+            Texture2Param = RC.GetShaderParam(shader, "normalTex");
             TexMixParam = RC.GetShaderParam(shader, "texmix");
         }
 
@@ -81,17 +86,11 @@ namespace Fusee.Tutorial.Core
         [VisitMethod]
         void OnMaterial(MaterialComponent material)
         {
-            if (material.Diffuse.Texture == "maleModel_ED.jpg")
-            {
-                RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
-                //RC.SetShaderParam(TexMixParam, 1.0f);
-            }
-            else
-            {
-                RC.SetShaderParam(TexMixParam, 0.0f);
-            }
-            RC.SetShaderParam(AlbedoParam, material.Diffuse.Color);
-            RC.SetShaderParam(ShininessParam, material.Specular.Shininess);
+            
+            RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
+            RC.SetShaderParam(TexMixParam, 1.0f);
+            
+           
         }
         [VisitMethod]
         void OnTransform(TransformComponent xform)

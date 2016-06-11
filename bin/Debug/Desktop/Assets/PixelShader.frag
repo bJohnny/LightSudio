@@ -9,6 +9,7 @@ uniform float specfactor;
 uniform vec3 speccolor;
 uniform vec3 ambientcolor;
 uniform sampler2D texture;
+uniform sampler2D normalTex;
 uniform float texmix;
 varying vec2 uv;
 

@@ -92,6 +92,7 @@
     <Content Include="Assets\maleModel_ED.tif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\maleModel_NM.jpg" />
     <Content Include="Assets\Sphere.fus">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
