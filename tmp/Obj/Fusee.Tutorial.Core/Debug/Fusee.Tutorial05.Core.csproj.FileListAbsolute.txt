@@ -1,0 +1,11 @@
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\Cylinder.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\Cube.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\Sphere.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\VertexShader.vert
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\PixelShader.frag
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Assets\Wuggy.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Fusee.Tutorial.Core.dll
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\bin\Debug\Libraries\Fusee.Tutorial.Core.pdb
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Core\Debug\Fusee.Tutorial.Core.dll
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Core\Debug\Fusee.Tutorial.Core.pdb
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Core\Debug\Fusee.Tutorial05.Core.csprojResolveAssemblyReference.cache

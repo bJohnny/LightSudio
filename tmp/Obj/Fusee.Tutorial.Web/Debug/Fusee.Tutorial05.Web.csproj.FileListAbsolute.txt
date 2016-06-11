@@ -1,0 +1,13 @@
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Cylinder.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Cube.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Sphere.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\VertexShader.vert
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\PixelShader.frag
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Wuggy.fus
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Styles\browser.css
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Assets\Styles\loading_rocket.png
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Fusee.Tutorial.Web.exe
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\bin\Debug\Fusee.Tutorial.Web.pdb
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\Debug\Fusee.Tutorial05.Web.csprojResolveAssemblyReference.cache
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\Debug\Fusee.Tutorial.Web.exe
+E:\code\fuseeTuts\Fusee.Tutorial\Tutorial05Completed\tmp\Obj\Fusee.Tutorial.Web\Debug\Fusee.Tutorial.Web.pdb
