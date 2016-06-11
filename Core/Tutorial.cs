@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fusee.Base.Common;
 using Fusee.Base.Core;
 using Fusee.Engine.Common;
 using Fusee.Engine.Core;
@@ -16,6 +17,10 @@ namespace Fusee.Tutorial.Core
         public RenderContext RC;
         public IShaderParam AlbedoParam;
         public IShaderParam ShininessParam;
+        private IShaderParam TextureParam;
+        private IShaderParam TexMixParam;
+        private ITexture _maleModelTexture;
+
         public float4x4 View;
         private Dictionary<MeshComponent, Mesh> _meshes = new Dictionary<MeshComponent, Mesh>();
         private CollapsingStateStack<float4x4> _model = new CollapsingStateStack<float4x4>();
@@ -28,7 +33,9 @@ namespace Fusee.Tutorial.Core
                 {
                     Vertices = mc.Vertices,
                     Normals = mc.Normals,
+                    UVs = mc.UVs,
                     Triangles = mc.Triangles
+
                 };
                 _meshes[mc] = mesh;
             }
@@ -39,12 +46,17 @@ namespace Fusee.Tutorial.Core
         {
             RC = rc;
             // Initialize the shader(s)
+
             var vertsh = AssetStorage.Get<string>("VertexShader.vert");
             var pixsh = AssetStorage.Get<string>("PixelShader.frag");
             var shader = RC.CreateShader(vertsh, pixsh);
             RC.SetShader(shader);
             AlbedoParam = RC.GetShaderParam(shader, "albedo");
             ShininessParam = RC.GetShaderParam(shader, "shininess");
+            ImageData maleModelED = AssetStorage.Get<ImageData>("maleModel_ED.jpg");
+            _maleModelTexture = RC.CreateTexture(maleModelED);
+            TextureParam = RC.GetShaderParam(shader, "texture");
+            TexMixParam = RC.GetShaderParam(shader, "texmix");
         }
 
         protected override void InitState()
@@ -69,6 +81,15 @@ namespace Fusee.Tutorial.Core
         [VisitMethod]
         void OnMaterial(MaterialComponent material)
         {
+            if (material.Diffuse.Texture == "maleModel_ED.jpg")
+            {
+                RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
+                //RC.SetShaderParam(TexMixParam, 1.0f);
+            }
+            else
+            {
+                RC.SetShaderParam(TexMixParam, 0.0f);
+            }
             RC.SetShaderParam(AlbedoParam, material.Diffuse.Color);
             RC.SetShaderParam(ShininessParam, material.Specular.Shininess);
         }
@@ -92,7 +113,7 @@ namespace Fusee.Tutorial.Core
         private float _beta;
 
         private SceneOb _root;
-        private SceneContainer _wuggy;
+        private SceneContainer _maleModel;
 
         private SceneContainer _sphere;
 
@@ -102,9 +123,8 @@ namespace Fusee.Tutorial.Core
         public override void Init()
         {
             // Load some meshes
-            _wuggy = AssetStorage.Get<SceneContainer>("wuggy.fus");
-            _wheelBigL = _wuggy.Children.FindNodes(n => n.Name == "WheelBigL").First().GetTransform();
-            _sphere = AssetStorage.Get<SceneContainer>("Sphere.fus");
+            _maleModel = AssetStorage.Get<SceneContainer>("maleModel_mesh.fus");
+           
             
             _renderer = new Renderer(RC);
 
@@ -125,15 +145,12 @@ namespace Fusee.Tutorial.Core
                 _beta -= speed.y * 0.0001f;
             }
 
-            _wheelBigL.Rotation += new float3(-0.05f * Keyboard.WSAxis, 0, 0);
-
             // Setup matrices
             var aspectRatio = Width / (float)Height;
-            RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 20);
-            float4x4 view = float4x4.CreateTranslation(0, 0, 5) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, -0.5f, 0);
+            RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
+            float4x4 view = float4x4.CreateTranslation(0, -52, 30) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
             _renderer.View = view;
-            //_renderer.Traverse(_wuggy.Children);
-            _renderer.Traverse(_sphere.Children);
+            _renderer.Traverse(_maleModel.Children);
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
             Present();
@@ -152,7 +169,7 @@ namespace Fusee.Tutorial.Core
             // 0.25*PI Rad -> 45° Opening angle along the vertical direction. Horizontal opening angle is calculated based on the aspect ratio
             // Front clipping happens at 1 (Objects nearer than 1 world unit get clipped)
             // Back clipping happens at 2000 (Anything further away from the camera than 2000 world units gets clipped, polygons will be cut)
-            var projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 1, 20000);
+            var projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 1, 2000);
             RC.Projection = projection;
         }
 
