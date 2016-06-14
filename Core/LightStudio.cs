@@ -23,6 +23,8 @@ namespace Fusee.LightStudio.Core
         private ITexture _maleModelTexture;
         private ITexture _maleModelTextureNM;
 
+        public IShaderParam LightDirParam;
+
         public float4x4 View;
         private Dictionary<MeshComponent, Mesh> _meshes = new Dictionary<MeshComponent, Mesh>();
         private CollapsingStateStack<float4x4> _model = new CollapsingStateStack<float4x4>();
@@ -62,6 +64,9 @@ namespace Fusee.LightStudio.Core
             TextureParam = RC.GetShaderParam(shader, "texture");
             Texture2Param = RC.GetShaderParam(shader, "normalTex");
             TexMixParam = RC.GetShaderParam(shader, "texmix");
+            LightDirParam = RC.GetShaderParam(shader, "lightdir");
+
+
         }
 
         protected override void InitState()
@@ -86,7 +91,13 @@ namespace Fusee.LightStudio.Core
         [VisitMethod]
         void OnMaterial(MaterialComponent material)
         {
-            
+            // LightDir in ModelKoordinate angeben, im Moment sind es ViewKoordinaten
+            // falls Richtungsvektor, dann Mult. mit RC.InvTransModelView.
+            // falls Punktvektor, dann mit RC.ModelView
+
+
+
+            RC.SetShaderParam(LightDirParam, new float3(0, 0, -1));
             RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
             RC.SetShaderParam(TexMixParam, 1.0f);
             
@@ -129,6 +140,8 @@ namespace Fusee.LightStudio.Core
 
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
+
+            
         }
 
         // RenderAFrame is called once a frame
@@ -137,6 +150,8 @@ namespace Fusee.LightStudio.Core
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
+            // Viewports setzen
+
             float2 speed = Mouse.Velocity + Touch.GetVelocity(TouchPoints.Touchpoint_0);
             if (Mouse.LeftButton || Touch.GetTouchActive(TouchPoints.Touchpoint_0))
             {
@@ -144,12 +159,27 @@ namespace Fusee.LightStudio.Core
                 _beta -= speed.y * 0.0001f;
             }
 
+
+            // Eingabe abholen, und durchreichen float3 an shader
+
+            // Viewports setzen
+
+            RC.Viewport(0, 0, Width, Height);
+
             // Setup matrices
             var aspectRatio = Width / (float)Height;
             RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
             float4x4 view = float4x4.CreateTranslation(0, -52, 30) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
+
+
+
             _renderer.View = view;
             _renderer.Traverse(_maleModel.Children);
+
+            // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
+            // nochmal rendern
+            // render View und Viewport setzen
+
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
             Present();

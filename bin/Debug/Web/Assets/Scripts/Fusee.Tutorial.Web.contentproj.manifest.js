@@ -22,9 +22,9 @@ contentManifest["Fusee.Tutorial.Web.contentproj"] = [
     ["File",	"Assets/maleModel_ED.tif",	{  "sizeBytes": 29627224 }],
     ["File",	"Assets/maleModel_eye.fus",	{  "sizeBytes": 99169 }],
     ["File",	"Assets/maleModel_mesh.fus",	{  "sizeBytes": 2522948 }],
-    ["File",	"Assets/PixelShader.frag",	{  "sizeBytes": 668 }],
+    ["File",	"Assets/PixelShader.frag",	{  "sizeBytes": 941 }],
     ["File",	"Assets/Sphere.fus",	{  "sizeBytes": 67791 }],
     ["Image",	"Assets/Styles/loading_rocket.png",	{  "sizeBytes": 10975 }],
-    ["File",	"Assets/VertexShader.vert",	{  "sizeBytes": 343 }],
+    ["File",	"Assets/VertexShader.vert",	{  "sizeBytes": 406 }],
     ["File",	"Assets/Wuggy.fus",	{  "sizeBytes": 857710 }],
     ];

@@ -339,7 +339,7 @@ JSIL.DeclareNamespace("Fusee.LightStudio.Core");
   function LightStudio_Init () {
     this._maleModel = $T02().Get$b1($T01())("maleModel_mesh.fus");
     this._renderer = new ($T03())(this.RenderCanvas$RC$value);
-    (this.RenderCanvas$RC$value.ClearColor = $S00().Construct(1, 1, 1, 1));
+    (this.RenderCanvas$RC$value.ClearColor = $S00().Construct(0, 0, 0, 1));
   }; 
 
   function LightStudio_RenderAFrame () {

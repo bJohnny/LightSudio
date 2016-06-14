@@ -28,7 +28,8 @@ bld/
 #wwwroot/
 
 # Fusee3D Temp Files
-tmp/
+tmp/*
+bin/*
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
