@@ -6,7 +6,7 @@ using Fusee.Engine.Core;
 using Fusee.Serialization;
 using Path = Fusee.Base.Common.Path;
 
-namespace Fusee.Tutorial.Desktop
+namespace Fusee.LightStudio.Desktop
 {
     public class Simple
     {
@@ -42,7 +42,7 @@ namespace Fusee.Tutorial.Desktop
 
             AssetStorage.RegisterProvider(fap);
 
-            var app = new Core.Tutorial();
+            var app = new Core.LightStudio();
 
             // Inject Fusee.Engine InjectMe dependencies (hard coded)
             app.CanvasImplementor = new Fusee.Engine.Imp.Graphics.Desktop.RenderCanvasImp();

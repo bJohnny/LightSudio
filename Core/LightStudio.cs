@@ -9,7 +9,7 @@ using Fusee.Serialization;
 using Fusee.Xene;
 using static Fusee.Engine.Core.Input;
 
-namespace Fusee.Tutorial.Core
+namespace Fusee.LightStudio.Core
 {
 
     class Renderer : SceneVisitor
@@ -102,7 +102,7 @@ namespace Fusee.Tutorial.Core
 
 
     [FuseeApplication(Name = "Tutorial Example", Description = "The official FUSEE Tutorial.")]
-    public class Tutorial : RenderCanvas
+    public class LightStudio : RenderCanvas
     {
         private Mesh _mesh;
         private TransformComponent _wheelBigL;

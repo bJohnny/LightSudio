@@ -2,7 +2,7 @@
 using Fusee.Engine.Core;
 using Fusee.Math.Core;
 
-namespace Fusee.Tutorial.Core
+namespace Fusee.LightStudio.Core
 {
     public class SceneOb
     {
