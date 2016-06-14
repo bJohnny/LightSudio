@@ -101,7 +101,7 @@ namespace Fusee.LightStudio.Core
     }
 
 
-    [FuseeApplication(Name = "Tutorial Example", Description = "The official FUSEE Tutorial.")]
+    [FuseeApplication(Name = "Light Studio", Description = "A virtual light studio.")]
     public class LightStudio : RenderCanvas
     {
         private Mesh _mesh;
@@ -128,7 +128,7 @@ namespace Fusee.LightStudio.Core
             _renderer = new Renderer(RC);
 
             // Set the clear color for the backbuffer
-            RC.ClearColor = new float4(1, 1, 1, 1);
+            RC.ClearColor = new float4(0, 0, 0, 1);
         }
 
         // RenderAFrame is called once a frame

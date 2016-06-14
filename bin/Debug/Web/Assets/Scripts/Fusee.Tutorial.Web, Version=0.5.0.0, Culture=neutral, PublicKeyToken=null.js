@@ -2,12 +2,12 @@
 'use strict';
 var $asm0A = JSIL.DeclareAssembly("Fusee.Tutorial.Web, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null");
 
-JSIL.SetEntryPoint($asm0A, $asm0A.TypeRef("Fusee.Tutorial.Web.Tutorial"), "Main", JSIL.MethodSignature.Void);
+JSIL.SetEntryPoint($asm0A, $asm0A.TypeRef("Fusee.LightStudio.Web.Tutorial"), "Main", JSIL.MethodSignature.Void);
 
 JSIL.DeclareNamespace("Fusee");
-JSIL.DeclareNamespace("Fusee.Tutorial");
-JSIL.DeclareNamespace("Fusee.Tutorial.Web");
-/* class Fusee.Tutorial.Web.Tutorial */ 
+JSIL.DeclareNamespace("Fusee.LightStudio");
+JSIL.DeclareNamespace("Fusee.LightStudio.Web");
+/* class Fusee.LightStudio.Web.Tutorial */ 
 
 (function Tutorial$Members () {
   var $, $thisType;
@@ -33,7 +33,7 @@ JSIL.DeclareNamespace("Fusee.Tutorial.Web");
     return ($T06 = JSIL.Memoize($asm01.Fusee.Base.Core.Font)) ();
   };
   var $T07 = function () {
-    return ($T07 = JSIL.Memoize($asm0A.Fusee.Tutorial.Web.Tutorial_$l$gc)) ();
+    return ($T07 = JSIL.Memoize($asm0A.Fusee.LightStudio.Web.Tutorial_$l$gc)) ();
   };
   var $T08 = function () {
     return ($T08 = JSIL.Memoize($asm07.Fusee.Serialization.SceneContainer)) ();
@@ -42,7 +42,7 @@ JSIL.DeclareNamespace("Fusee.Tutorial.Web");
     return ($T09 = JSIL.Memoize($asm01.Fusee.Base.Core.AssetStorage)) ();
   };
   var $T0A = function () {
-    return ($T0A = JSIL.Memoize($asm09.Fusee.Tutorial.Core.Tutorial)) ();
+    return ($T0A = JSIL.Memoize($asm09.Fusee.LightStudio.Core.LightStudio)) ();
   };
   var $T0B = function () {
     return ($T0B = JSIL.Memoize($asm04.Fusee.Engine.Core.RenderCanvas)) ();
@@ -83,36 +83,36 @@ JSIL.DeclareNamespace("Fusee.Tutorial.Web");
     var handler = new ($T05())();
     handler.ReturnedType = $T06().__Type__;
     if ((arg_4D_1 = $T07().$l$g9__0_0) === null) {
-      arg_4D_1 = $T07().$l$g9__0_0 = $T00().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.Tutorial.Web.Tutorial_$l$gc, "$lMain$gb__0_0", $S00(), false, false));
+      arg_4D_1 = $T07().$l$g9__0_0 = $T00().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.LightStudio.Web.Tutorial_$l$gc, "$lMain$gb__0_0", $S00(), false, false));
     }
     handler.Decoder = arg_4D_1;
     if ((arg_73_1 = $T07().$l$g9__0_1) === null) {
-      arg_73_1 = $T07().$l$g9__0_1 = $T01().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.Tutorial.Web.Tutorial_$l$gc, "$lMain$gb__0_1", $S01(), false, false));
+      arg_73_1 = $T07().$l$g9__0_1 = $T01().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.LightStudio.Web.Tutorial_$l$gc, "$lMain$gb__0_1", $S01(), false, false));
     }
     handler.Checker = arg_73_1;
     webAssetProvider.RegisterTypeHandler(handler.MemberwiseClone());
     handler = new ($T05())();
     handler.ReturnedType = $T08().__Type__;
     if ((arg_BA_1 = $T07().$l$g9__0_2) === null) {
-      arg_BA_1 = $T07().$l$g9__0_2 = $T00().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.Tutorial.Web.Tutorial_$l$gc, "$lMain$gb__0_2", $S02(), false, false));
+      arg_BA_1 = $T07().$l$g9__0_2 = $T00().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.LightStudio.Web.Tutorial_$l$gc, "$lMain$gb__0_2", $S02(), false, false));
     }
     handler.Decoder = arg_BA_1;
     if ((arg_E0_1 = $T07().$l$g9__0_3) === null) {
-      arg_E0_1 = $T07().$l$g9__0_3 = $T01().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.Tutorial.Web.Tutorial_$l$gc, "$lMain$gb__0_3", $S03(), false, false));
+      arg_E0_1 = $T07().$l$g9__0_3 = $T01().New($T07().$l$g9, null, new JSIL.MethodPointerInfo($asm0A.Fusee.LightStudio.Web.Tutorial_$l$gc, "$lMain$gb__0_3", $S03(), false, false));
     }
     handler.Checker = arg_E0_1;
     webAssetProvider.RegisterTypeHandler(handler.MemberwiseClone());
     $T09().RegisterProvider(webAssetProvider);
-    var tutorial = new ($T0A())();
-    tutorial.RenderCanvas$CanvasImplementor$value = new ($T0C())();
-    tutorial.RenderCanvas$ContextImplementor$value = new ($T0D())(tutorial.RenderCanvas$CanvasImplementor$value);
-    $T0E().AddDriverImp(new ($T0F())(tutorial.RenderCanvas$CanvasImplementor$value));
-    tutorial.Run();
+    var lightStudio = new ($T0A())();
+    lightStudio.RenderCanvas$CanvasImplementor$value = new ($T0C())();
+    lightStudio.RenderCanvas$ContextImplementor$value = new ($T0D())(lightStudio.RenderCanvas$CanvasImplementor$value);
+    $T0E().AddDriverImp(new ($T0F())(lightStudio.RenderCanvas$CanvasImplementor$value));
+    lightStudio.Run();
   }; 
 
   JSIL.MakeType({
       BaseType: $asm0D.TypeRef("System.Object"), 
-      Name: "Fusee.Tutorial.Web.Tutorial", 
+      Name: "Fusee.LightStudio.Web.Tutorial", 
       IsPublic: true, 
       IsReferenceType: true, 
       MaximumConstructorArguments: 0, 
@@ -135,7 +135,7 @@ JSIL.DeclareNamespace("Fusee.Tutorial.Web");
 
 })();
 
-/* class Fusee.Tutorial.Web.Tutorial+<>c */ 
+/* class Fusee.LightStudio.Web.Tutorial+<>c */ 
 
 (function $l$gc$Members () {
   var $, $thisType;
@@ -216,7 +216,7 @@ JSIL.DeclareNamespace("Fusee.Tutorial.Web");
 
   JSIL.MakeType({
       BaseType: $asm0D.TypeRef("System.Object"), 
-      Name: "Fusee.Tutorial.Web.Tutorial+<>c", 
+      Name: "Fusee.LightStudio.Web.Tutorial+<>c", 
       IsPublic: false, 
       IsReferenceType: true, 
       MaximumConstructorArguments: 0, 
