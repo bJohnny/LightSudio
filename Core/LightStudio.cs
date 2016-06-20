@@ -59,7 +59,7 @@ namespace Fusee.LightStudio.Core
             ShininessParam = RC.GetShaderParam(shader, "shininess");
             ImageData maleModelED = AssetStorage.Get<ImageData>("maleModel_ED.jpg");
             _maleModelTexture = RC.CreateTexture(maleModelED);
-            ImageData maleModelNM = AssetStorage.Get<ImageData>("maleModel_NM.jpg");
+            ImageData maleModelNM = AssetStorage.Get<ImageData>("maleFigure_NM_switch_red_ch.png");
             _maleModelTextureNM = RC.CreateTexture(maleModelNM);
             TextureParam = RC.GetShaderParam(shader, "texture");
             Texture2Param = RC.GetShaderParam(shader, "normalTex");
@@ -133,7 +133,7 @@ namespace Fusee.LightStudio.Core
         public override void Init()
         {
             // Load some meshes
-            _maleModel = AssetStorage.Get<SceneContainer>("maleModel_mesh.fus");
+            _maleModel = AssetStorage.Get<SceneContainer>("Model.fus");
            
             
             _renderer = new Renderer(RC);
