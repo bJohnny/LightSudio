@@ -86,7 +86,7 @@
     <Content Include="Assets\Cube.fus">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\maleFigure_NM_switch_red_ch.png">
+    <Content Include="Assets\maleFigure_NM.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\maleModel_ED.jpg">

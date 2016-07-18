@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fusee.Base.Common;
 using Fusee.Base.Core;
@@ -97,7 +98,7 @@ namespace Fusee.LightStudio.Core
 
 
 
-            RC.SetShaderParam(LightDirParam, new float3(0, 0, -1));
+            //RC.SetShaderParam(LightDirParam, new float3(0, 0, -1));
             RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
             RC.SetShaderParam(TexMixParam, 1.0f);
             
@@ -121,11 +122,13 @@ namespace Fusee.LightStudio.Core
         private IShaderParam _albedoParam;
         private float _alpha = 0.001f;
         private float _beta;
-
+        
         private SceneOb _root;
         private SceneContainer _maleModel;
-
         private SceneContainer _sphere;
+
+        //now implement the float 3x3 for the lightdir
+        private float _lightDir;
 
         private Renderer _renderer;
 
@@ -160,7 +163,19 @@ namespace Fusee.LightStudio.Core
             }
 
 
-            // Eingabe abholen, und durchreichen float3 an shader
+            // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
+            float sin = (float)System.Math.Sin(_lightDir);
+            float cos = (float)System.Math.Cos(_lightDir);
+
+            if (Keyboard.GetKey(KeyCodes.Left))
+            {
+                _lightDir = _lightDir - 0.2f;
+            }
+            else if (Keyboard.GetKey(KeyCodes.Right))
+            {
+                _lightDir += 0.2f;
+            }
+
 
             // Viewports setzen
 
@@ -174,11 +189,17 @@ namespace Fusee.LightStudio.Core
 
 
             _renderer.View = view;
+            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(-1 * cos - 0 * sin, 0, -1 * sin + 0 * cos));
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
             // nochmal rendern
             // render View und Viewport setzen
+            RC.Projection = float4x4.CreateOrthographic(52, 30, 0, 70);
+            _renderer.View = float4x4.CreateRotationX(-3.141592f / 2) * float4x4.CreateTranslation(0, -100, 0);
+
+            RC.Viewport(0, Height - 400, 500, 400);
+            _renderer.Traverse(_maleModel.Children);
 
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
