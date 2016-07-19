@@ -98,7 +98,7 @@ namespace Fusee.LightStudio.Core
 
 
             
-            //RC.SetShaderParam(LightDirParam, new float3(0, 0, -1));
+            //RC.SetShaderParam(LightDirParam, new float3(0, 0, -1) * RC.InvModelView);
             RC.SetShaderParamTexture(TextureParam, _maleModelTexture);
             RC.SetShaderParam(TexMixParam, 1.0f);
             
@@ -167,11 +167,11 @@ namespace Fusee.LightStudio.Core
             
             if (Keyboard.GetKey(KeyCodes.Left))
             {
-                _lightDir = _lightDir - 2f;
+                _lightDir = _lightDir - 0.5f;
             }
             else if (Keyboard.GetKey(KeyCodes.Right))
             {
-                _lightDir += 2f;
+                _lightDir += 0.5f;
             }
 
 
@@ -187,7 +187,7 @@ namespace Fusee.LightStudio.Core
 
 
             _renderer.View = view;
-            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(_lightDir, 0, 0) * RC.InvTransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(_lightDir, 0.5f, -1f) * RC.InvModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
