@@ -65,7 +65,7 @@ namespace Fusee.LightStudio.Core
             TextureParam = RC.GetShaderParam(shader, "texture");
             Texture2Param = RC.GetShaderParam(shader, "normalTex");
             TexMixParam = RC.GetShaderParam(shader, "texmix");
-            LightDirParam = RC.GetShaderParam(shader, "lightdir");
+            LightDirParam = RC.GetShaderParam(shader, "lightpos");
 
 
         }
@@ -179,7 +179,7 @@ namespace Fusee.LightStudio.Core
 
 
             _renderer.View = view;
-            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(_lightDir, 0.5f, -1f) * RC.InvTransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(0, _lightDir, -5) * RC.TransModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
