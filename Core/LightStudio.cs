@@ -9,7 +9,7 @@ using Fusee.Math.Core;
 using Fusee.Serialization;
 using Fusee.Xene;
 using static Fusee.Engine.Core.Input;
-
+using static Fusee.Tutorial.Core.LightingController;
 namespace Fusee.LightStudio.Core
 {
 
@@ -164,15 +164,8 @@ namespace Fusee.LightStudio.Core
 
 
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
-            
-            if (Keyboard.GetKey(KeyCodes.Left))
-            {
-                _lightDir = _lightDir - 0.5f;
-            }
-            else if (Keyboard.GetKey(KeyCodes.Right))
-            {
-                _lightDir += 0.5f;
-            }
+
+            _lightDir = lighting(_lightDir);
 
 
             // Viewports setzen
