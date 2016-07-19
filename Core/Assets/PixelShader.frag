@@ -26,8 +26,8 @@ void main()
     // Diffuse
     //vec3 lightdir = vec3(0, 0, -1);
 
-	//vec3 lightdirN = normalize(lightdir);
-	vec3 lightdirN = normalize(normal - lightpos);
+	vec3 lightdirN = normalize(lightdir);
+	//vec3 lightdirN = normalize(normal - lightpos);
 
     float intensityDiff = dot(nnormal, lightdirN);
 	//float intensityDiff = dot(nnormal, surfaceToLightN);

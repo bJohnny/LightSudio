@@ -13,11 +13,11 @@ namespace Fusee.Tutorial.Core
         {
             if (Keyboard.GetKey(KeyCodes.Left))
             {
-                lightDir -= 0.05f;
+                lightDir -= 0.5f;
             }
             else if (Keyboard.GetKey(KeyCodes.Right))
             {
-                lightDir += 0.05f;
+                lightDir += 0.5f;
             }
 
             return lightDir;
