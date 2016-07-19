@@ -13,19 +13,24 @@ uniform sampler2D normalTex;
 uniform float texmix;
 varying vec2 uv;
 uniform vec3 lightdir; // paralleles Licht - muss normalisiert werden. Richtung aus der das Licht kommt
-
+uniform vec3 lightpos;
 
 
 void main()
 {
+	vec3 lightpos = vec3(1, 1, -1);
+	vec3 surfaceToLight = normal - lightpos;
+	vec3 surfaceToLightN = normalize(surfaceToLight);
     vec3 nnormal = normalize(normal);
 
     // Diffuse
     //vec3 lightdir = vec3(0, 0, -1);
 
-	vec3 lightdirN = normalize(lightdir);
+	//vec3 lightdirN = normalize(lightdir);
+	vec3 lightdirN = normalize(normal - lightpos);
 
     float intensityDiff = dot(nnormal, lightdirN);
+	//float intensityDiff = dot(nnormal, surfaceToLightN);
     vec3 resultingAlbedo = (1.0-texmix) * albedo + texmix * vec3(texture2D(texture, uv));
 
     // Specular
@@ -34,6 +39,7 @@ void main()
     {
         vec3 viewdir = -viewpos;
         vec3 h = normalize(viewdir+lightdirN);
+		//vec3 h = normalize(viewdir+intensityDiff);
         intensitySpec = specfactor * pow(max(0.0, dot(h, nnormal)), shininess);
     }
 

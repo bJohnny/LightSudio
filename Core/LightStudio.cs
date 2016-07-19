@@ -164,7 +164,6 @@ namespace Fusee.LightStudio.Core
 
 
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
-
             _lightDir = lighting(_lightDir);
 
 
@@ -175,23 +174,24 @@ namespace Fusee.LightStudio.Core
             // Setup matrices
             var aspectRatio = Width / (float)Height;
             RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
-            float4x4 view = float4x4.CreateTranslation(0, -52, 30) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
+            float4x4 view = float4x4.CreateTranslation(0, -40, 70) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
 
 
 
             _renderer.View = view;
-            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(_lightDir, 0.5f, -1f) * RC.InvModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(_lightDir, 0.5f, -1f) * RC.InvTransModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
             // nochmal rendern
             // render View und Viewport setzen
+            /*
             RC.Projection = float4x4.CreateOrthographic(52, 30, 0, 70);
             _renderer.View = float4x4.CreateRotationX(-3.141592f / 2) * float4x4.CreateTranslation(0, -100, 0);
 
             RC.Viewport(0, Height - 400, 500, 400);
             _renderer.Traverse(_maleModel.Children);
-
+            */
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
             Present();
