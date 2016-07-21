@@ -24,7 +24,10 @@ namespace Fusee.LightStudio.Core
         private ITexture _maleModelTexture;
         private ITexture _maleModelTextureNM;
 
-        public IShaderParam LightDirParam;
+        public IShaderParam LightPosFrontLeftParam;
+        public IShaderParam LightPosFrontRightParam;
+        public IShaderParam LightPosBackLeftParam;
+        public IShaderParam LightPosBackRightParam;
 
         public float4x4 View;
         private Dictionary<MeshComponent, Mesh> _meshes = new Dictionary<MeshComponent, Mesh>();
@@ -65,7 +68,11 @@ namespace Fusee.LightStudio.Core
             TextureParam = RC.GetShaderParam(shader, "texture");
             Texture2Param = RC.GetShaderParam(shader, "normalTex");
             TexMixParam = RC.GetShaderParam(shader, "texmix");
-            LightDirParam = RC.GetShaderParam(shader, "lightpos");
+
+            LightPosFrontLeftParam  = RC.GetShaderParam(shader, "lightposFrontLeft");
+            LightPosBackLeftParam   = RC.GetShaderParam(shader, "lightposBackLeft");
+            LightPosFrontRightParam = RC.GetShaderParam(shader, "lightposFrontRight");
+            LightPosBackRightParam  = RC.GetShaderParam(shader, "lightposBackRight");
 
 
         }
@@ -117,7 +124,6 @@ namespace Fusee.LightStudio.Core
     public class LightStudio : RenderCanvas
     {
         private Mesh _mesh;
-        private TransformComponent _wheelBigL;
 
         private IShaderParam _albedoParam;
         private float _alpha = 0.001f;
@@ -127,8 +133,11 @@ namespace Fusee.LightStudio.Core
         private SceneContainer _maleModel;
         private SceneContainer _sphere;
 
-        //now implement the float 3x3 for the lightdir
-        private float _lightDir;
+        
+        private float3 _lightPosFrontLeft;
+        private float3 _lightPosBackLeft;
+        private float3 _lightPosFrontRight;
+        private float3 _lightPosBackRight;
 
         private Renderer _renderer;
 
@@ -144,7 +153,11 @@ namespace Fusee.LightStudio.Core
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
 
-            
+            _lightPosFrontLeft  = new float3(-200f, 250f, -100f);
+            _lightPosBackLeft   = new float3(-200f, 250f, 100f);
+            _lightPosFrontRight = new float3(200f, 250f, -100f);
+            _lightPosBackRight  = new float3(200f, 250f, 100f);
+
         }
 
         // RenderAFrame is called once a frame
@@ -153,22 +166,11 @@ namespace Fusee.LightStudio.Core
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
-            // Viewports setzen
-
-            float2 speed = Mouse.Velocity + Touch.GetVelocity(TouchPoints.Touchpoint_0);
-            if (Mouse.LeftButton || Touch.GetTouchActive(TouchPoints.Touchpoint_0))
-            {
-                _alpha -= speed.x * 0.0001f;
-                _beta -= speed.y * 0.0001f;
-            }
-
-
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
-            _lightDir = lighting(_lightDir);
+            //_lightPosFrontLeft = lighting(_lightPosFrontLeft);
 
 
             // Viewports setzen
-
             RC.Viewport(0, 0, Width, Height);
 
             // Setup matrices
@@ -176,10 +178,8 @@ namespace Fusee.LightStudio.Core
             RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
             float4x4 view = float4x4.CreateTranslation(0, -40, 70) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
 
-
-
             _renderer.View = view;
-            _renderer.RC.SetShaderParam(_renderer.LightDirParam, new float3(0, _lightDir, -5) * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosFrontLeftParam, _lightPosFrontLeft * RC.TransModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen

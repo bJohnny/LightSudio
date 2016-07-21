@@ -12,27 +12,22 @@ uniform sampler2D texture;
 uniform sampler2D normalTex;
 uniform float texmix;
 varying vec2 uv;
-//uniform vec3 lightdir; // paralleles Licht - muss normalisiert werden. Richtung aus der das Licht kommt
-uniform vec3 lightpos;
 
+// paralleles Licht - muss normalisiert werden. Richtung aus der das Licht kommt
+//uniform vec3 lightdir; 
 
-void main()
+uniform vec3 lightposFrontLeft;
+uniform vec3 lightposBackLeft;
+uniform vec3 lightposFrontRight;
+uniform vec3 lightposBackRight;
+
+vec4 ApplyLight(vec3 lightpos, vec3 normal) 
 {
+	vec3 nnormal = normalize(normal);
 	vec3 surfaceToLight = lightpos - viewpos;
 	vec3 surfaceToLightN = normalize(surfaceToLight);
 	vec3 lightposN = normalize(lightpos);
-	vec3 nnormal = normalize(normal);
-
-
-    // Diffuse
-    //vec3 lightdir = vec3(0, 0, -1);
-
-	//vec3 lightdirN = normalize(lightdir);
-	//vec3 lightdirN = normalize(normal - lightpos);
-
-    float intensityDiff = dot(nnormal, surfaceToLightN);
-    
-	//float intensityDiff = dot(nnormal, surfaceToLightN);
+    float intensityDiff =	dot(nnormal, surfaceToLightN); 
     vec3 resultingAlbedo = (1.0-texmix) * albedo + texmix * vec3(texture2D(texture, uv));
 
     // Specular
@@ -45,5 +40,13 @@ void main()
         intensitySpec = specfactor * pow(max(0.0, dot(h, nnormal)), shininess);
     }
 
-    gl_FragColor = vec4(ambientcolor + intensityDiff * resultingAlbedo + intensitySpec * speccolor, 1);
+	return vec4(ambientcolor + intensityDiff * resultingAlbedo + intensitySpec * speccolor, 1);
 }
+
+void main()
+{
+	gl_FragColor = ApplyLight(lightposFrontLeft, normal);
+	// apply the other lights. The following returns a bad result
+	//gl_FragColor += ApplyLight(lightposBackLeft, normal);
+}
+

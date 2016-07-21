@@ -1,4 +1,5 @@
 ﻿using Fusee.Engine.Common;
+using Fusee.Math.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,18 @@ namespace Fusee.Tutorial.Core
 {
     public static class LightingController
     {
-        public static float lighting(float lightDir)
+        public static float3 lighting(float3 LightPos)
         {
             if (Keyboard.GetKey(KeyCodes.Left))
             {
-                lightDir -= 1f;
+                LightPos.x -= 1f;
             }
             else if (Keyboard.GetKey(KeyCodes.Right))
             {
-                lightDir += 1f;
+                LightPos.x += 1f;
             }
 
-            return lightDir;
+            return LightPos;
         }
     }
 }
