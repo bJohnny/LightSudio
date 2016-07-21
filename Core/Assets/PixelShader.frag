@@ -39,6 +39,10 @@ vec4 ApplyLight(vec3 lightpos, vec3 normal)
 		//vec3 h = normalize(viewdir+intensityDiff);
         intensitySpec = specfactor * pow(max(0.0, dot(h, nnormal)), shininess);
     }
+	else  
+	{
+		intensityDiff = 0.0;
+	}
 
 	return vec4(ambientcolor + intensityDiff * resultingAlbedo + intensitySpec * speccolor, 1);
 }
@@ -47,6 +51,8 @@ void main()
 {
 	gl_FragColor = ApplyLight(lightposFrontLeft, normal);
 	// apply the other lights. The following returns a bad result
-	//gl_FragColor += ApplyLight(lightposBackLeft, normal);
+	gl_FragColor += ApplyLight(lightposBackLeft, normal);
+	gl_FragColor += ApplyLight(lightposFrontRight, normal);
+	gl_FragColor += ApplyLight(lightposBackRight, normal);
 }
 

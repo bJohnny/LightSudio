@@ -153,10 +153,10 @@ namespace Fusee.LightStudio.Core
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
 
-            _lightPosFrontLeft  = new float3(-200f, 250f, -100f);
-            _lightPosBackLeft   = new float3(-200f, 250f, 100f);
-            _lightPosFrontRight = new float3(200f, 250f, -100f);
-            _lightPosBackRight  = new float3(200f, 250f, 100f);
+            _lightPosFrontLeft  = new float3(-20f, 50f, -10f);
+            _lightPosBackLeft   = new float3(-20f, 50f, 10f);
+            _lightPosFrontRight = new float3(20f, 50f, -10f);
+            _lightPosBackRight  = new float3(20f, 50f, 10f);
 
         }
 
@@ -180,6 +180,9 @@ namespace Fusee.LightStudio.Core
 
             _renderer.View = view;
             _renderer.RC.SetShaderParam(_renderer.LightPosFrontLeftParam, _lightPosFrontLeft * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosBackLeftParam, _lightPosBackLeft * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosFrontRightParam, _lightPosBackLeft * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosBackRightParam, _lightPosBackLeft * RC.TransModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
