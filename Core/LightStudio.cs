@@ -133,9 +133,17 @@ namespace Fusee.LightStudio.Core
         
         private SceneOb _root;
         private SceneContainer _maleModel;
-        private SceneContainer _sphere;
+        private SceneContainer _lightSphere1;
+        private SceneContainer _lightSphere2;
+        private SceneContainer _lightSphere3;
+        private SceneContainer _lightSphere4;
 
-        
+        // used to transform geometry
+        private TransformComponent _lightSphereA;
+        private TransformComponent _lightSphereB;
+        private TransformComponent _lightSphereC;
+        private TransformComponent _lightSphereD;
+
         private float3 _lightPosFrontLeft;
         private float3 _lightPosBackLeft;
         private float3 _lightPosFrontRight;
@@ -154,26 +162,47 @@ namespace Fusee.LightStudio.Core
         {
             // Load some meshes
             _maleModel = AssetStorage.Get<SceneContainer>("Model.fus");
-           
-            
+            _lightSphere1 = AssetStorage.Get<SceneContainer>("Sphere.fus");
+            _lightSphere2 = AssetStorage.Get<SceneContainer>("Sphere2.fus");
+            _lightSphere3 = AssetStorage.Get<SceneContainer>("Sphere3.fus");
+            _lightSphere4 = AssetStorage.Get<SceneContainer>("Sphere4.fus");
+
+
             _renderer = new Renderer(RC);
 
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
 
-            _lightPosFrontLeft  = new float3(-25f, 55f, -15f);
-            _lightPosBackLeft   = new float3(-25f, 55f, 15f);
-            _lightPosFrontRight = new float3(25f, 55f, -15f);
-            _lightPosBackRight  = new float3(25f, 55f, 15f);
+            _lightPosFrontLeft  = new float3(-25f, 55f, -3f);
+            _lightPosBackLeft   = new float3(-25f, 55f, 10f);
+            _lightPosFrontRight = new float3(25f, 55f, -3f);
+            _lightPosBackRight  = new float3(25f, 55f, 10f);
             
             _fl = _fr = _bl = _br = false;
-            
 
+            // position the lighting spheres
+           
         }
 
         // RenderAFrame is called once a frame
         public override void RenderAFrame()
         {
+            _lightSphereA = _lightSphere1.Children.FindNodes(c => c.Name == "Sphere").First()?.GetTransform();
+            _lightSphereA.Translation = new float3(_lightPosFrontLeft);
+            _lightSphereA.Scale = new float3(1f, 1f, 1f);
+
+            _lightSphereB = _lightSphere2.Children.FindNodes(c => c.Name == "Sphere").First()?.GetTransform();
+            _lightSphereB.Translation = new float3(_lightPosFrontRight);
+            _lightSphereB.Scale = new float3(1f, 1f, 1f);
+
+            _lightSphereC = _lightSphere3.Children.FindNodes(c => c.Name == "Sphere").First()?.GetTransform();
+            _lightSphereC.Translation = new float3(_lightPosBackLeft);
+            _lightSphereC.Scale = new float3(1f, 1f, 1f);
+
+            _lightSphereD = _lightSphere4.Children.FindNodes(c => c.Name == "Sphere").First()?.GetTransform();
+            _lightSphereD.Translation = new float3(_lightPosBackRight);
+            _lightSphereD.Scale = new float3(1f, 1f, 1f);
+
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
@@ -210,25 +239,31 @@ namespace Fusee.LightStudio.Core
             // Setup matrices
             var aspectRatio = Width / (float)Height;
             RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
-            float4x4 view = float4x4.CreateTranslation(0, -52, 25) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
+            float4x4 view = float4x4.CreateTranslation(0, -52, 50) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
 
             _renderer.View = view;
             _renderer.RC.SetShaderParam(_renderer.LightPosFrontLeftParam, _lightPosFrontLeft * RC.TransModelView);
             _renderer.RC.SetShaderParam(_renderer.LightPosBackLeftParam, _lightPosBackLeft * RC.TransModelView);
             _renderer.RC.SetShaderParam(_renderer.LightPosFrontRightParam, _lightPosFrontRight * RC.TransModelView);
             _renderer.RC.SetShaderParam(_renderer.LightPosBackRightParam, _lightPosBackRight * RC.TransModelView);
+            _renderer.Traverse(_lightSphere1.Children);
+            _renderer.Traverse(_lightSphere2.Children);
+            _renderer.Traverse(_lightSphere3.Children);
+            _renderer.Traverse(_lightSphere4.Children);
             _renderer.Traverse(_maleModel.Children);
+          
+
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
             // nochmal rendern
             // render View und Viewport setzen
-            /*
+            
             RC.Projection = float4x4.CreateOrthographic(52, 30, 0, 70);
             _renderer.View = float4x4.CreateRotationX(-3.141592f / 2) * float4x4.CreateTranslation(0, -100, 0);
 
             RC.Viewport(0, Height - 400, 500, 400);
-            _renderer.Traverse(_maleModel.Children);
-            */
+            //_renderer.Traverse(_maleModel.Children);
+            
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
             Present();

@@ -21,6 +21,7 @@ namespace Fusee.Tutorial.Core
                 else if (Keyboard.GetKey(KeyCodes.Right))
                 {
                     LightPos.x += 1f;
+
                 }
                 else if (Keyboard.GetKey(KeyCodes.Up))
                 {
