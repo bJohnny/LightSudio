@@ -207,22 +207,22 @@ namespace Fusee.LightStudio.Core
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
-            if (Keyboard.GetKey(KeyCodes.D1))
+            if (Keyboard.GetKey(KeyCodes.NumPad1))
             {
                 _fl = true;
                 _fr = _br = _bl = false;
             }
-            else if (Keyboard.GetKey(KeyCodes.D3))
+            else if (Keyboard.GetKey(KeyCodes.NumPad3))
             {
                 _fr = true;
                 _fl = _br = _bl = false;
             }
-            else if (Keyboard.GetKey(KeyCodes.D7))
+            else if (Keyboard.GetKey(KeyCodes.NumPad7))
             {
                 _bl = true;
                 _fr = _br = _fl = false;
             }
-            else if (Keyboard.GetKey(KeyCodes.D9))
+            else if (Keyboard.GetKey(KeyCodes.NumPad9))
             {
                 _br = true;
                 _fr = _fl = _bl = false;
