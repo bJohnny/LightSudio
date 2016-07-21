@@ -181,8 +181,8 @@ namespace Fusee.LightStudio.Core
             _renderer.View = view;
             _renderer.RC.SetShaderParam(_renderer.LightPosFrontLeftParam, _lightPosFrontLeft * RC.TransModelView);
             _renderer.RC.SetShaderParam(_renderer.LightPosBackLeftParam, _lightPosBackLeft * RC.TransModelView);
-            _renderer.RC.SetShaderParam(_renderer.LightPosFrontRightParam, _lightPosBackLeft * RC.TransModelView);
-            _renderer.RC.SetShaderParam(_renderer.LightPosBackRightParam, _lightPosBackLeft * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosFrontRightParam, _lightPosFrontRight * RC.TransModelView);
+            _renderer.RC.SetShaderParam(_renderer.LightPosBackRightParam, _lightPosBackRight * RC.TransModelView);
             _renderer.Traverse(_maleModel.Children);
 
             // Hier kleiner Viewport setzen geänderte Proj und View Matrizen setzen
