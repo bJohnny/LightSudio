@@ -179,8 +179,6 @@ namespace Fusee.LightStudio.Core
             _lightPosBackRight  = new float3(25f, 55f, 10f);
             
             _fl = _fr = _bl = _br = false;
-
-            // position the lighting spheres
            
         }
 
@@ -262,7 +260,7 @@ namespace Fusee.LightStudio.Core
             _renderer.View = float4x4.CreateRotationX(-3.141592f / 2) * float4x4.CreateTranslation(0, -100, 0);
 
             RC.Viewport(0, Height - 400, 500, 400);
-            //_renderer.Traverse(_maleModel.Children);
+            _renderer.Traverse(_maleModel.Children);
             
 
             // Swap buffers: Show the contents of the backbuffer (containing the currently rendered frame) on the front buffer.
