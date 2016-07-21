@@ -22,8 +22,16 @@ namespace Fusee.Tutorial.Core
                 {
                     LightPos.x += 1f;
                 }
+                else if (Keyboard.GetKey(KeyCodes.Up))
+                {
+                    LightPos.y += 1f;
+                }
+                else if (Keyboard.GetKey(KeyCodes.Down))
+                {
+                    LightPos.y -= 1f;
+                }
             }
-            
+
             return LightPos;
         }
     }
