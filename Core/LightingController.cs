@@ -10,17 +10,20 @@ namespace Fusee.Tutorial.Core
 {
     public static class LightingController
     {
-        public static float3 lighting(float3 LightPos)
+        public static float3 lighting(float3 LightPos, Boolean LightSelect)
         {
-            if (Keyboard.GetKey(KeyCodes.Left))
+            if (LightSelect)
             {
-                LightPos.x -= 1f;
+                if (Keyboard.GetKey(KeyCodes.Left))
+                {
+                    LightPos.x -= 1f;
+                }
+                else if (Keyboard.GetKey(KeyCodes.Right))
+                {
+                    LightPos.x += 1f;
+                }
             }
-            else if (Keyboard.GetKey(KeyCodes.Right))
-            {
-                LightPos.x += 1f;
-            }
-
+            
             return LightPos;
         }
     }

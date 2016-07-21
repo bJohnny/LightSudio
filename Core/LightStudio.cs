@@ -138,6 +138,8 @@ namespace Fusee.LightStudio.Core
         private float3 _lightPosBackLeft;
         private float3 _lightPosFrontRight;
         private float3 _lightPosBackRight;
+        private Boolean _keyboardDown;
+
 
         private Renderer _renderer;
 
@@ -153,10 +155,10 @@ namespace Fusee.LightStudio.Core
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
 
-            _lightPosFrontLeft  = new float3(-20f, 50f, -10f);
-            _lightPosBackLeft   = new float3(-20f, 50f, 10f);
-            _lightPosFrontRight = new float3(20f, 50f, -10f);
-            _lightPosBackRight  = new float3(20f, 50f, 10f);
+            _lightPosFrontLeft  = new float3(-5f, 55f, -5f);
+            _lightPosBackLeft   = new float3(-5f, 55f, 5f);
+            _lightPosFrontRight = new float3(5f, 55f, -5f);
+            _lightPosBackRight  = new float3(5f, 55f, 5f);
 
         }
 
@@ -167,7 +169,22 @@ namespace Fusee.LightStudio.Core
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
-            //_lightPosFrontLeft = lighting(_lightPosFrontLeft);
+            if (Keyboard.GetKey(KeyCodes.D1))
+            {
+                _lightPosFrontLeft = lighting(_lightPosFrontLeft, true);
+            }
+            else if (Keyboard.GetKey(KeyCodes.D3))
+            {
+                _lightPosFrontRight = lighting(_lightPosFrontRight, true);
+            }
+            else if (Keyboard.GetKey(KeyCodes.D7))
+            {
+                _lightPosBackLeft = lighting(_lightPosBackLeft, true);
+            }
+            else if (Keyboard.GetKey(KeyCodes.D9))
+            {
+                _lightPosBackRight = lighting(_lightPosBackRight, true);
+            }
 
 
             // Viewports setzen
