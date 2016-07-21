@@ -24,6 +24,8 @@ namespace Fusee.LightStudio.Core
         private ITexture _maleModelTexture;
         private ITexture _maleModelTextureNM;
 
+        
+
         public IShaderParam LightPosFrontLeftParam;
         public IShaderParam LightPosFrontRightParam;
         public IShaderParam LightPosBackLeftParam;
@@ -138,7 +140,11 @@ namespace Fusee.LightStudio.Core
         private float3 _lightPosBackLeft;
         private float3 _lightPosFrontRight;
         private float3 _lightPosBackRight;
-        private Boolean _keyboardDown;
+
+        private bool _fr;
+        private bool _fl;
+        private bool _br;
+        private bool _bl;
 
 
         private Renderer _renderer;
@@ -155,10 +161,13 @@ namespace Fusee.LightStudio.Core
             // Set the clear color for the backbuffer
             RC.ClearColor = new float4(0, 0, 0, 1);
 
-            _lightPosFrontLeft  = new float3(-5f, 55f, -5f);
-            _lightPosBackLeft   = new float3(-5f, 55f, 5f);
-            _lightPosFrontRight = new float3(5f, 55f, -5f);
-            _lightPosBackRight  = new float3(5f, 55f, 5f);
+            _lightPosFrontLeft  = new float3(-25f, 55f, -15f);
+            _lightPosBackLeft   = new float3(-25f, 55f, 15f);
+            _lightPosFrontRight = new float3(25f, 55f, -15f);
+            _lightPosBackRight  = new float3(25f, 55f, 15f);
+            
+            _fl = _fr = _bl = _br = false;
+            
 
         }
 
@@ -171,21 +180,29 @@ namespace Fusee.LightStudio.Core
             // Eingabe abholen, und durchreichen float3 an shader und die Manipulation der Lichtposition mittels Keyboard
             if (Keyboard.GetKey(KeyCodes.D1))
             {
-                _lightPosFrontLeft = lighting(_lightPosFrontLeft, true);
+                _fl = true;
+                _fr = _br = _bl = false;
             }
             else if (Keyboard.GetKey(KeyCodes.D3))
             {
-                _lightPosFrontRight = lighting(_lightPosFrontRight, true);
+                _fr = true;
+                _fl = _br = _bl = false;
             }
             else if (Keyboard.GetKey(KeyCodes.D7))
             {
-                _lightPosBackLeft = lighting(_lightPosBackLeft, true);
+                _bl = true;
+                _fr = _br = _fl = false;
             }
             else if (Keyboard.GetKey(KeyCodes.D9))
             {
-                _lightPosBackRight = lighting(_lightPosBackRight, true);
+                _br = true;
+                _fr = _fl = _bl = false;
             }
 
+            _lightPosFrontLeft = lighting(_lightPosFrontLeft, _fl);
+            _lightPosFrontRight = lighting(_lightPosFrontRight, _fr);
+            _lightPosBackLeft = lighting(_lightPosBackLeft, _bl);
+            _lightPosBackRight = lighting(_lightPosBackRight, _br);
 
             // Viewports setzen
             RC.Viewport(0, 0, Width, Height);
@@ -193,7 +210,7 @@ namespace Fusee.LightStudio.Core
             // Setup matrices
             var aspectRatio = Width / (float)Height;
             RC.Projection = float4x4.CreatePerspectiveFieldOfView(3.141592f * 0.25f, aspectRatio, 0.01f, 100);
-            float4x4 view = float4x4.CreateTranslation(0, -40, 70) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
+            float4x4 view = float4x4.CreateTranslation(0, -52, 25) * float4x4.CreateRotationY(_alpha) * float4x4.CreateRotationX(_beta) * float4x4.CreateTranslation(0, 0, 0);
 
             _renderer.View = view;
             _renderer.RC.SetShaderParam(_renderer.LightPosFrontLeftParam, _lightPosFrontLeft * RC.TransModelView);
